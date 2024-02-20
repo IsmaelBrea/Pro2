@@ -1,4 +1,4 @@
-C:/Users/User/Desktop/PRACTICAS_PRO2/P1/Plantilla-Template_P1/P1/cmake-build-debug/CMakeFiles/main.dir
-C:/Users/User/Desktop/PRACTICAS_PRO2/P1/Plantilla-Template_P1/P1/cmake-build-debug/CMakeFiles/test_lists.dir
-C:/Users/User/Desktop/PRACTICAS_PRO2/P1/Plantilla-Template_P1/P1/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/User/Desktop/PRACTICAS_PRO2/P1/Plantilla-Template_P1/P1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/tester/Desktop/Universidad/1º carrera/2º cuatrimestre/PROGRAMACIÓN 2/2024/Pro2/P1/Plantilla-Template_P1/P1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/tester/Desktop/Universidad/1º carrera/2º cuatrimestre/PROGRAMACIÓN 2/2024/Pro2/P1/Plantilla-Template_P1/P1/cmake-build-debug/CMakeFiles/main.dir
+C:/Users/tester/Desktop/Universidad/1º carrera/2º cuatrimestre/PROGRAMACIÓN 2/2024/Pro2/P1/Plantilla-Template_P1/P1/cmake-build-debug/CMakeFiles/test_lists.dir
+C:/Users/tester/Desktop/Universidad/1º carrera/2º cuatrimestre/PROGRAMACIÓN 2/2024/Pro2/P1/Plantilla-Template_P1/P1/cmake-build-debug/CMakeFiles/rebuild_cache.dir

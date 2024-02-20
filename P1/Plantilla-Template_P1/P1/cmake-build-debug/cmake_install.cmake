@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/User/Desktop/PRACTICAS_PRO2/P1/Plantilla-Template_P1/P1
+# Install script for directory: C:/Users/tester/Desktop/Universidad/1º carrera/2º cuatrimestre/PROGRAMACIÓN 2/2024/Pro2/P1/Plantilla-Template_P1/P1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,7 +34,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/Users/User/Downloads/CLion 2023.2.2/bin/mingw/bin/objdump.exe")
+  set(CMAKE_OBJDUMP "C:/Program Files/JetBrains/CLion 2021.3.2/bin/mingw/bin/objdump.exe")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/User/Desktop/PRACTICAS_PRO2/P1/Plantilla-Template_P1/P1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/tester/Desktop/Universidad/1º carrera/2º cuatrimestre/PROGRAMACIÓN 2/2024/Pro2/P1/Plantilla-Template_P1/P1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
