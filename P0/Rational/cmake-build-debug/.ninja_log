@@ -1,0 +1,18 @@
+# ninja log v5
+1	404	7289215774575597	build.ninja	a84e137c4c80e2ac
+9	246	7289215779048255	CMakeFiles/Rational_pointer.dir/rational_pointer.c.obj	5a60a1f2112da60c
+1	249	7289215779053359	CMakeFiles/Rational_pointer.dir/main.c.obj	ab305a77b6be8667
+249	576	7289215782330757	Rational_pointer.exe	5e40fdab2025d4fb
+4	304	7289217256158939	CMakeFiles/Rational_pointer.dir/main.c.obj	ab305a77b6be8667
+304	507	7289217258113452	Rational_pointer.exe	5e40fdab2025d4fb
+11	397	7289219983849994	CMakeFiles/Rational_pointer.dir/main.c.obj	ab305a77b6be8667
+399	568	7289219985449272	Rational_pointer.exe	5e40fdab2025d4fb
+62	444	7289373809305346	CMakeFiles/Rational_pointer.dir/main.c.obj	ab305a77b6be8667
+445	1079	7289373815674359	Rational_pointer.exe	5e40fdab2025d4fb
+1	296	7289373900538218	CMakeFiles/Rational_struct.dir/rational_struct.c.obj	ae2d14b55c2c7166
+19	329	7289373900788470	CMakeFiles/Rational_struct.dir/main.c.obj	fc9a2987f9954b2f
+330	609	7289373903463455	Rational_struct.exe	df4000973173bb7
+6	310	7289375453848692	CMakeFiles/Rational_pointer.dir/rational_pointer.c.obj	5a60a1f2112da60c
+312	536	7289375456041948	Rational_pointer.exe	5e40fdab2025d4fb
+5	155	7289412058903495	CMakeFiles/Rational_pointer.dir/main.c.obj	ab305a77b6be8667
+156	357	7289412060843790	Rational_pointer.exe	5e40fdab2025d4fb
