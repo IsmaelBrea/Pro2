@@ -83,7 +83,7 @@ tPosL findItem (tUserName name, tList list){     //la lista se pasa por valor
     if(list.lastPos==LNULL){
         return LNULL;
     }else{
-        for(pos=0;(pos<list.lastPos )&&(strcmp(list.data[pos].userName,name)!=0);pos++);
+        for(pos=0;(pos<=list.lastPos )&&(strcmp(list.data[pos].userName,name)!=0);pos++);
         if(strcmp(list.data[pos].userName,name)==0){
             return pos;
         }else{
