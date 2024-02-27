@@ -14,7 +14,7 @@
 #include <stdbool.h>
 
 //Valor nulo de la lista
-#define LNULL -1
+#define LNULL (-1)
 
 //Tamaño máximo de la lista
 #define MAX 25

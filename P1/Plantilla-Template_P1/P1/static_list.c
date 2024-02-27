@@ -7,8 +7,6 @@
  */
 
 #include "static_list.h"
-
-/*  Write your code here */
 #include <string.h>
 
 void createEmptyList(tList *list){  //la lista se pasa por referencia
