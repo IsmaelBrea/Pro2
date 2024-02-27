@@ -11,6 +11,16 @@
 
 #include "types.h"
 
-/* Write your code here... */
+//Valor nulo de la lista
+#define LNULL NULL
+
+typedef int ItemL;
+typedef struct tNode *tPosL;
+struct tNode{
+    tItemL data;
+    tPosL next;
+};
+typedef tPosL *tList;
+
 
 #endif
