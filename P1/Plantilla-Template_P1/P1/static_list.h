@@ -87,7 +87,7 @@ tPosL next(tPosL pos, tList list);
     tPosL: posición de la lista
  PreCD: La posición indicada es una posición válida en la lista}
  */
-tPosL previous( tPosL pos, tList list);
+tPosL previous(tPosL pos, tList list);
 
 
 /* insertItem (tItemL, tPosL, tList) -> tList, bool
@@ -115,7 +115,7 @@ bool insertItem(tItemL item, tPosL pos, tList *list);
  PostCD: Las posiciones de los elementos de la lista posteriores a la de la
         posición eliminada pueden haber variado}
  */
-void deleteAtPosition (tPosL pos,tList *list);
+void deleteAtPosition(tPosL pos, tList *list);
 
 
 /* getItem (tPosL, tList) -> tItemL
@@ -138,7 +138,7 @@ tItemL getItem(tPosL pos, tList list);
  PreCD: La posición indicada es una posición válida en la lista.
  PostCD: El orden de los elementos de la lista no se ve modificado}
  */
-void updateItem (tItemL item, tPosL pos, tList *list);
+void updateItem(tItemL item, tPosL pos, tList *list);
 
 
 /* findItem (tUserName, tList) → tPosL
@@ -150,7 +150,7 @@ void updateItem (tItemL item, tPosL pos, tList *list);
     tPosL: posición
  PreCD: La lista debe estar previamente inicializada}
 */
-tPosL findItem (tUserName name, tList list);
+tPosL findItem(tUserName name, tList list);
 
 
 #endif
