@@ -23,7 +23,7 @@ struct tNode {
     tItemL data;
     tPosL next;
 };
-typedef tPosL *tList;
+typedef tPosL tList;
 
 ////Prototipos de las funciones
 
