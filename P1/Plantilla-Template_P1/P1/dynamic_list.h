@@ -36,7 +36,7 @@ PostCD: La lista queda inicializada y no contiene elementos }
 void createEmptyList(tList *list);
 
 /* isEmptyList (tList) -> bool
- {0bjetivo: Determinar si la lista está vacía.
+ { 0bjetivo: Determinar si la lista está vacía.
  Entrada:
     tList: lista
  Salida:
@@ -94,7 +94,7 @@ tPosL previous(tPosL pos, tList list);
  entonces se añade al final. Devuelve un valor true si el elemento fue insertado;
  false en caso contrario.
  Entrada:
-    tItem: contenido a añadir, tPosL: posición a añadir el contenido, tList: lista
+    tItemL: contenido a añadir, tPosL: posición a añadir el contenido, tList: lista
  Salida:
     tList: lista modificada con el nuevo elemento y true si se ha podido insertar y false en caso contrario
  PreCD: La posición indicada es una posición válida en la lista o bien nula (LNULL).
@@ -103,7 +103,7 @@ tPosL previous(tPosL pos, tList list);
 */
 
 /*necesitamos crear una función auxiliar para poder usar insertItem
-  *Esta función reservará en un puntero una dirección de memoria con tamaño suficiente para un tNode) */
+  *Esta función reservará en un puntero una dirección de memoria con tamaño suficiente para un tNode */
 bool createNode(tPosL *P);
 
 bool insertItem(tItemL item, tPosL pos, tList *list);

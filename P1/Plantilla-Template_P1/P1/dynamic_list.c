@@ -20,7 +20,6 @@ tPosL first(tList list) {      //la lista se pasa por valor
     return list;    //devuelve el primer elemento de la lista
 }
 
-
 tPosL last(tList list) {   //la lista se pasa por valor
     tPosL pos;   //creamos una variable de tipo tPosL
 
@@ -38,8 +37,11 @@ tPosL previous(tPosL pos, tList list) {  //la lista se pasa por valor
     if (pos == first(list)) {  //si p es el primer elemento de la lista
         return LNULL;     //devolvemos NULO
     } else {        //si no
-        for (q = first(list); q->next != pos; q = next(q, list));  // recorremos la lista con la variable q, mientras q->next no apunta a p, pasamos al siguiente
-            return q;                                   //cuando llegamos a la posición deseada, devolvemos q (elemento anterior a pos)
+        for (q = first(list); q->next != pos; q = next(q, list));  //recorremos la lista con nuestra variable auxiliar q
+        /*mientras q->next no apunta a pos, pasamos al siguiente
+         * cuando llegamos a la posición deseada, devolvemos, que es
+         *el elemento anterior a pos */
+        return q;
         }
     }
 
@@ -50,7 +52,7 @@ bool createNode(tPosL *p) {
 }
 
 
-bool insertItem(tItemL item, tPosL pos, tList *list) {
+bool insertItem(tItemL item, tPosL pos, tList *list) {  //la lista se pasa por referencia
     tPosL q, r;
 
     if (!createNode(&q)) { // Se verifica si se pudo crear un nuevo nodo
@@ -65,17 +67,15 @@ bool insertItem(tItemL item, tPosL pos, tList *list) {
         *list = q;  // el nuevo nodo se convierte en el primer elemento de la lista
     } else {
         if (pos == LNULL) {  // si la posición es nula, se inserta al final de la lista
-            r = last(*list); // se inicializa r como el primer elemento de la lista
+            r = last(*list); // buscamos el último elemento de la lista
             r->next = q; // se añade el nuevo nodo al final de la lista
         } else {
             if (pos == *list) {  // si la posición es el primer elemento de la lista
                 q->next = *list; // el nuevo nodo apunta al primer elemento actual
                 *list = q; // el nuevo nodo se convierte en el primer elemento de la lista
             } else { // si no
-                q->next = pos->next; // el nuevo nodo apunta al siguiente nodo del nodo en la posición pos
-                pos->next = q; // el nodo en la posición pos apunta al nuevo nodo
-                q->data = pos->data; // se copia el dato del nodo pos al nuevo nodo
-                pos->data = item; // se actualiza el dato del nodo pos con el nuevo dato
+                q->next = pos; // el nuevo nodo apunta al nodo en la posición pos
+                previous(pos, *list)->next = q; // el nodo anterior a pos apunta al nuevo nodo
             }
         }
     }
@@ -83,26 +83,24 @@ bool insertItem(tItemL item, tPosL pos, tList *list) {
 }
 
 void deleteAtPosition(tPosL pos, tList *list) {
-    tPosL q = LNULL;
+    tPosL q;
 
-    if (pos == first(*list)) { //si pos es el primer elemento de la lista
-        *list = (*list)->next; //cambiamos la lista por el siguiente nodo
+    if (pos == first(*list)) { // si p es el primer elemento de la lista
+        *list = (*list)->next; // cambiamos la lista por pos->next
+    } else if (pos->next == LNULL) { // si pos es el último elemento de la lista
+        for (q = *list; q->next != pos; q = q->next); // recorremos la lista mientras desde q=*list hasta q->next = p
+        q->next = LNULL;   // igualamos q->next a NULO
     } else {
-        if (pos->next == LNULL) { //si pos es el último elemento de la lista
-            for (q = *list; q->next != pos; q = q->next); //recorremos la lista hasta el penúltimo nodo
-            q->next = LNULL; //hacemos que el penúltimo nodo apunte a NULL
-        } else { //si pos está en medio de la lista
-            q = pos->next; //guardamos la dirección del siguiente nodo
-            pos->data = q->data; //copiamos los datos del siguiente nodo en pos
-            pos->next = q->next; //hacemos que pos apunte al nodo siguiente al siguiente nodo
-            free(q); //liberamos el nodo siguiente
-        }
+        q = previous(pos, *list); // buscamos el nodo anterior a pos
+        q->next = pos->next; // el nodo anterior a pos apunta al nodo siguiente a pos
     }
+    free(pos); // liberamos la memoria del nodo que queremos eliminar
 }
 
 
+
 tItemL getItem(tPosL pos, tList list){
-    return pos->data;   //devuelve el campo data situado en la pisición que se pasa como argumento
+    return pos->data;   //devuelve el campo data situado en la posición que se pasa como argumento
 }
 
 
@@ -112,9 +110,8 @@ void updateItem(tItemL item, tPosL pos, tList *list) {
 
 tPosL findItem(tUserName name, tList list) {
     tPosL p;  //creamos una variable p de tipo tPosL
-    for (p = list; (p != LNULL) && (strcmp(p->data.userName, name) != 0); p = p->next);   //si la lista está vacía la
+    for (p = list; (p != LNULL) && (strcmp(p->data.userName, name) != 0); p = p->next);   //si la lista está vacía
                                                                     //la recorremos con la variable q hasta que el campo
                                                                     // data coincida con el deseado
     return p;  //devolvemos la variable auxiliar p con la posición del elemento buscado
 }
-

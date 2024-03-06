@@ -3,7 +3,7 @@
  * SUBTITLE: Practical 1
  * AUTHOR 1: ISMAEL BREA ARIAS    LOGIN 1: ismael.brea
  * AUTHOR 2: DIEGO ROMÁN POSE     LOGIN 2: diego.roman
- * DATE: ** / ** / **
+ * DATE: 04 / 03 / 2024
  */
 
 #include "static_list.h"
@@ -26,10 +26,10 @@ tPosL last(tList list) {           //la lista se pasa por valor
 }
 
 tPosL next(tPosL pos, tList list) {  //la lista se pasa por valor
-    if (pos == list.lastPos) {
-        return LNULL;
+    if (pos == list.lastPos) {      //si la posición es el último elemento de la lista
+        return LNULL;               //devolvemos NULO
     } else {
-        return ++pos;
+        return ++pos;            //si no, la siguiente posición
     }
 }
 
