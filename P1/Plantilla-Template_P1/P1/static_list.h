@@ -28,14 +28,16 @@ typedef struct {
 
 ////Prototipos de las funciones
 
+void createEmptyList(tList *list);
 /* createEmptyList (tList) -> tList
  {Objetivo: Crear una lista vacía.
  Salida:
     tList: una lista vacía
 PostCD: La lista queda inicializada y no contiene elementos }
  */
-void createEmptyList(tList *list);
 
+
+bool isEmptyList(tList list);
 /* isEmptyList (tList) -> bool
  {0bjetivo: Determinar si la lista está vacía.
  Entrada:
@@ -44,8 +46,9 @@ void createEmptyList(tList *list);
     bool: true (1) si está vacía, false (0) si no lo está
  PreCD: La lista debe estar previamente inicializada}
  */
-bool isEmptyList(tList list);
 
+
+tPosL first(tList list);
 /* first (tList) -> tPosL
  {Objetivo: Devolver la posición del primer elemento de la lista.
  Entrada:
@@ -54,8 +57,9 @@ bool isEmptyList(tList list);
     tPosL: posición de la lista
  PreCD: La lista no está vacía}
  */
-tPosL first(tList list);
 
+
+tPosL last(tList list);
 /* last (tList) -> tPosL
  {Objetivo: Devolver la posición del último elemento de la lista.
  Entrada:
@@ -64,8 +68,9 @@ tPosL first(tList list);
     tPosL: posición de la lista
  PreCD: La lista no está vacía}
  */
-tPosL last(tList list);
 
+
+tPosL next(tPosL pos, tList list);
 /* next (tPosL, tList) -> tPosL
  {Objetivo: Devolver la posición en la lista del elemento siguiente al de la posición indicada
           (o LNULL si la posición no tiene siguiente).
@@ -75,9 +80,9 @@ tPosL last(tList list);
     tPosL: posición de la lista
  PreCD: La posición indicada es una posición válida en la lista}
  */
-tPosL next(tPosL pos, tList list);
 
 
+tPosL previous(tPosL pos, tList list);
 /* previous (tPosL, tList) -> tPosL
  {Objetivo: Devolver la posición en la lista del elemento anterior al de la posición indicada
  (o LNULL si la posición no tiene anterior).
@@ -87,9 +92,9 @@ tPosL next(tPosL pos, tList list);
     tPosL: posición de la lista
  PreCD: La posición indicada es una posición válida en la lista}
  */
-tPosL previous(tPosL pos, tList list);
 
 
+bool insertItem(tItemL item, tPosL pos, tList *list);
 /* insertItem (tItemL, tPosL, tList) -> tList, bool
  {Objetivo: Insertar un elemento en la lista antes de la posición indicada. Si la posición es LNULL,
  entonces se añade al final. Devuelve un valor true si el elemento fue insertado;
@@ -102,9 +107,9 @@ tPosL previous(tPosL pos, tList list);
  PostCD: Las posiciones de los elementos de la lista posteriores a la del
           elemento insertado pueden haber variado}
 */
-bool insertItem(tItemL item, tPosL pos, tList *list);
 
 
+void deleteAtPosition(tPosL pos, tList *list);
 /* deleteAtPosition (tPosL, tList) -> tList
  {Objetivo: Eliminar de la lista el elemento que ocupa la posición indicada.
  Entrada:
@@ -115,9 +120,9 @@ bool insertItem(tItemL item, tPosL pos, tList *list);
  PostCD: Las posiciones de los elementos de la lista posteriores a la de la
         posición eliminada pueden haber variado}
  */
-void deleteAtPosition(tPosL pos, tList *list);
 
 
+tItemL getItem(tPosL pos, tList list);
 /* getItem (tPosL, tList) -> tItemL
  {Objetivo: Devolver el contenido del elemento que ocupa la posición indicada.
  Entrada:
@@ -126,9 +131,9 @@ void deleteAtPosition(tPosL pos, tList *list);
     tItemL: contenido de la posición indicada
  PreCD: La posición indicada es una posición válida en la lista}
  */
-tItemL getItem(tPosL pos, tList list);
 
 
+void updateItem(tItemL item, tPosL pos, tList *list);
 /* updateItem (tItemL, tPosL, tList) -> tList
  {Objetivo: Modificar el contenido del elemento situado en la posición indicada.
  Entrada:
@@ -138,9 +143,9 @@ tItemL getItem(tPosL pos, tList list);
  PreCD: La posición indicada es una posición válida en la lista.
  PostCD: El orden de los elementos de la lista no se ve modificado}
  */
-void updateItem(tItemL item, tPosL pos, tList *list);
 
 
+tPosL findItem(tUserName name, tList list);
 /* findItem (tUserName, tList) → tPosL
  {Objetivo: Devolver la posición del primer elemento de la lista cuyo nombre de usuario se
  corresponda con el indicado (o LNULL si no existe tal elemento).
@@ -150,7 +155,5 @@ void updateItem(tItemL item, tPosL pos, tList *list);
     tPosL: posición
  PreCD: La lista debe estar previamente inicializada}
 */
-tPosL findItem(tUserName name, tList list);
-
 
 #endif
