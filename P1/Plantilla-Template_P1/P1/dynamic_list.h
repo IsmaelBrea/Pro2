@@ -23,9 +23,9 @@ struct tNode {
     tItemL data;
     tPosL next;
 };
-typedef tPosL tList;
+typedef tPosL *tList;
 
-////Prototipos de las funciones
+//Prototipos de las funciones
 
 void createEmptyList(tList *list);
 /* createEmptyList (tList) -> tList

@@ -86,7 +86,7 @@ void deleteAtPosition(tPosL pos, tList *list) {
     tPosL q;
 
     if (pos == first(*list)) { // si p es el primer elemento de la lista
-        *list = (*list)->next; // cambiamos la lista por pos->next
+        *list = pos->next; // cambiamos la lista por pos->next
     } else if (pos->next == LNULL) { // si pos es el último elemento de la lista
         for (q = *list; q->next != pos; q = q->next); // recorremos la lista mientras desde q=*list hasta q->next = p
         q->next = LNULL;   // igualamos q->next a NULO
