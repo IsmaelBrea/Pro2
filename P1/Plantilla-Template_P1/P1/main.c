@@ -21,39 +21,109 @@
 #endif
 
 
-void New(tUserName userName, tUserCategory userCategory, tList *list){
+void New(tUserName newUserName, tUserCategory newUserCategory, tList *list){
     /* Objetivo: alta de un usuario de categoría basic o pro
-  * Entradas: lista, nombre de usuario y categoría del usuario
+  * Entradas: lista de usuarios, nombre de usuario y categoría del usuario
   * Salidas: lista
-  * Precondiciones: La lista debe estar inicializada y no debe estar llena.
-                   El nombre de usuario debe ser único (no debe existir otro usuario con el mismo nombre).
-  * Postcondiciones: Se agrega un nuevo usuario a la lista con el nombre y categoría especificados.
-                     Si se realiza con éxito, la lista se modifica con el nuevo usuario añadido.
-                     Si no se puede realizar el alta (por ejemplo, debido a un nombre de usuario duplicado),
-                     la lista permanece sin cambios.
+  * Precondiciones: ninguna
+  * Postcondiciones: la lista de usuarios se modifica para incluir el nuevo usuario.
    */
 
+    // Verificar si el usuario ya existe en la lista
+    if (findItem(newUserName, *list) != LNULL) {
+        // El usuario ya existe, imprimir un mensaje de error
+        printf("+ Error: New not possible\n");
+        return;
+    }
 
+    // Crear un nuevo objeto tItemL para representar al nuevo usuario
+    tItemL newUser;
 
+    strcpy(newUser.userName, newUserName);
+    newUser.userCategory = newUserCategory;
+    newUser.numPlay = 0;   //inicializamos el número de reproducciones a 0
 
+    // Agregar el nuevo usuario al final de la lista
+    if (insertItem(newUser,LNULL, list)) {   //si la posición que le pasamos es NULL el usuario se insertará al final de la lista
+        // Imprimir un mensaje de confirmación
+        printf("* New: user %s added with category %d\n", newUserName, newUserCategory);
+    } else {
+        // No se pudo agregar el nuevo usuario, imprimir un mensaje de error
+        printf("+ Error: New not possible\n");
+    }
+}
+
+void Delete(tUserName newUserName,tList *list){
+    /* Objetivo: eliminar un usuario de la lista
+     * Entradas: nombre de usuario y lista de usuarios
+     * Salidas: lista de usuarios
+     * Precondiciones: el usuario debe existir en la lista, no debe estar vacía
+     * Postcondiciones: cambia la lista (tiene un elemento menos, por lo que se modifican las posiciones)
+     *
+     */
+
+    //Verificar que el usuario no existe en la lista
+    if(findItem(newUserName,*list) == LNULL){
+        //El usuario no existe, imprimir un mensaje de error
+        printf("+ Error: Delete not possible\n");
+        return;
+
+    }else{   //si existe
+        //Tenemos que encontrar su posición
+        tPosL pos = findItem(newUserName, *list);
+
+        //Verificamos que la posición obtenida es válida
+        if(pos != LNULL){
+           tItemL item = getItem(pos, *list);   //obtenemos los datos del usuario
+            //y eliminamos su posición
+            deleteAtPosition(pos,list);
+            // Imprimir mensaje de éxito
+            printf("* Delete: user %s category %s\n", item.userName, item.userCategory == basic ? "basic" : "pro");
+        }
+        else{
+            printf("+ Error: Delete not possible\n");
+        }
+    }
 }
 
 
+//Funcion auxiliar que convierte un char a la categoria
+tUserCategory char_to_category(char* string){
+    tUserCategory category;
+    if(strcmp(string, "basic") == 0){
+        category = basic;
+        return category;
+    }
+    if(strcmp(string, "pro") == 0){
+        category = pro;
+        return category;
+    }
+    printf("Categoria inexistente");
+    return 0;
+}
 
 
 void processCommand(tList *list,char *commandNumber, char command, char *param1, char *param2) {
 
     switch (command) {
         case 'N':
-            printf("Command: %s %c %s %s\n", commandNumber, command, param1, param2);
+            printf("********************\n");
+            printf("%s %c: user %s category %s\n", commandNumber, command, param1, param2);
+            New(param1, (tUserCategory)char_to_category(param2), list);
             break;
         case 'D':
+            printf("********************\n");
+            printf("%s %c: user %s\n",commandNumber, command, param1);
+            Delete(param1,list);
             break;
         case 'U':
+            printf("********************\n");
             break;
         case 'P':
+            printf("********************\n");
             break;
         case 'S':
+            printf("********************\n");
             break;
         default:
             break;
