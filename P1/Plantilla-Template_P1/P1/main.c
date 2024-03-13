@@ -46,7 +46,7 @@ void New(tUserName newUserName, tUserCategory newUserCategory, tList *list){
     // Agregar el nuevo usuario al final de la lista
     if (insertItem(newUser,LNULL, list)) {   //si la posición que le pasamos es NULL el usuario se insertará al final de la lista
         // Imprimir un mensaje de confirmación
-        printf("* New: user %s added with category %d\n", newUserName, newUserCategory);
+        printf("* New: user %s category %s\n", newUserName, newUserCategory == basic ? "basic" : "pro");
     } else {
         // No se pudo agregar el nuevo usuario, imprimir un mensaje de error
         printf("+ Error: New not possible\n");
@@ -78,7 +78,7 @@ void Delete(tUserName newUserName,tList *list){
             //y eliminamos su posición
             deleteAtPosition(pos,list);
             // Imprimir mensaje de éxito
-            printf("* Delete: user %s category %s\n", item.userName, item.userCategory == basic ? "basic" : "pro");
+            printf("* Delete: user %s category %s numplays %d\n", item.userName, item.userCategory == basic ? "basic" : "pro", item.numPlay);
         }
         else{
             printf("+ Error: Delete not possible\n");
@@ -109,7 +109,7 @@ void processCommand(tList *list,char *commandNumber, char command, char *param1,
         case 'N':
             printf("********************\n");
             printf("%s %c: user %s category %s\n", commandNumber, command, param1, param2);
-            New(param1, (tUserCategory)char_to_category(param2), list);
+            New(param1, char_to_category(param2), list);
             break;
         case 'D':
             printf("********************\n");
@@ -177,9 +177,3 @@ int main(int nargs, char **args) {
 
     return 0;
 }
-
-
-
-
-
-
