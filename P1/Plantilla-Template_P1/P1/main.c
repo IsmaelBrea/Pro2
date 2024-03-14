@@ -87,6 +87,48 @@ void Delete(tUserName newUserName,tList *list){
 }
 
 
+void Stats(tList *list){
+    /* Objetivo: mostrar la lista de los usuarios actuales de MUSFIC y sus datos
+     * Entradas: lista de usuarios
+     * Salidas: lista de usuarios
+     * Precondiciones: la lista no debe estar vacía
+     * Postcondiciones: -
+     */
+    static int totalUsersBasic = 0, totalUsersPro = 0;
+    static int totalPlaysBasic = 0, totalPlaysPro = 0;
+    static double averageBasic = 0.0, averagePro = 0.0;
+
+    if (isEmptyList(*list)) { // Comprobar si la lista está vacía
+        printf("+ Error: Stats not possible\n");
+        return;
+    }
+
+    // Imprimir usuarios actuales
+    tPosL pos = first(*list);
+    while (pos != LNULL) {
+        tItemL item = getItem(pos, *list);
+        printf("User %s category %s numplays %d\n", item.userName, item.userCategory == basic ? "basic" : "pro", item.numPlay);
+        if (item.userCategory == basic) {
+            totalUsersBasic++;
+            totalPlaysBasic += item.numPlay;
+        } else {
+            totalUsersPro++;
+            totalPlaysPro += item.numPlay;
+        }
+        pos = next(pos, *list);
+    }
+    // Cálculo de estadísticas agregadas
+    averageBasic = totalUsersBasic > 0 ? (double)totalPlaysBasic / totalUsersBasic : 0.0;
+    averagePro = totalUsersPro > 0 ? (double)totalPlaysPro / totalUsersPro : 0.0;
+
+    // Imprimir tabla de estadísticas
+    printf("Category   Users   Plays   Average\n");
+    printf("Basic      %5d   %6d   %8.2f\n", totalUsersBasic, totalPlaysBasic, averageBasic);
+    printf("Pro        %5d   %6d   %8.2f\n", totalUsersPro, totalPlaysPro, averagePro);
+}
+
+
+
 //Funcion auxiliar que convierte un char a la categoria
 tUserCategory char_to_category(char* string){
     tUserCategory category;
@@ -124,6 +166,8 @@ void processCommand(tList *list,char *commandNumber, char command, char *param1,
             break;
         case 'S':
             printf("********************\n");
+            printf("%s %c:\n",commandNumber,command);
+            Stats(list);
             break;
         default:
             break;
