@@ -20,7 +20,6 @@
 #include "static_list.h"
 #endif
 
-
 void New(tUserName newUserName, tUserCategory newUserCategory, tList *list){
     /* Objetivo: alta de un usuario de categoría basic o pro
   * Entradas: lista de usuarios, nombre de usuario y categoría del usuario
@@ -57,32 +56,29 @@ void Delete(tUserName newUserName,tList *list){
     /* Objetivo: eliminar un usuario de la lista
      * Entradas: nombre de usuario y lista de usuarios
      * Salidas: lista de usuarios
-     * Precondiciones: el usuario debe existir en la lista, no debe estar vacía
+     * Precondiciones: el usuario debe existir en la lista
      * Postcondiciones: cambia la lista (tiene un elemento menos, por lo que se modifican las posiciones)
      *
      */
+    if (isEmptyList(*list)) { // Comprobar si la lista está vacía
+        printf("+ Error: Delete not possible\n");
+        return;
+    }
 
     //Verificar que el usuario no existe en la lista
-    if(findItem(newUserName,*list) == LNULL){
+    tPosL pos = findItem(newUserName,*list);
+    if(pos == LNULL){
         //El usuario no existe, imprimir un mensaje de error
         printf("+ Error: Delete not possible\n");
         return;
 
-    }else{   //si existe
-        //Tenemos que encontrar su posición
-        tPosL pos = findItem(newUserName, *list);
-
-        //Verificamos que la posición obtenida es válida
-        if(pos != LNULL){
-           tItemL item = getItem(pos, *list);   //obtenemos los datos del usuario
-            //y eliminamos su posición
-            deleteAtPosition(pos,list);
-            // Imprimir mensaje de éxito
-            printf("* Delete: user %s category %s numplays %d\n", item.userName, item.userCategory == basic ? "basic" : "pro", item.numPlay);
-        }
-        else{
-            printf("+ Error: Delete not possible\n");
-        }
+    } else {   //si existe
+        // Tenemos que encontrar su posición
+        tItemL item = getItem(pos, *list);
+        // Y eliminar su posición
+        deleteAtPosition(pos, list);
+        // Imprimir mensaje de éxito
+        printf("* Delete: user %s category %s numplays %d\n", item.userName, item.userCategory == basic ? "basic" : "pro", item.numPlay);
     }
 }
 
@@ -103,6 +99,12 @@ void Stats(tList *list){
         return;
     }
 
+    // Reiniciar variables de conteo
+    totalUsersBasic = 0;
+    totalUsersPro = 0;
+    totalPlaysBasic = 0;
+    totalPlaysPro = 0;
+
     // Imprimir usuarios actuales
     tPosL pos = first(*list);
     while (pos != LNULL) {
@@ -117,6 +119,7 @@ void Stats(tList *list){
         }
         pos = next(pos, *list);
     }
+
     // Cálculo de estadísticas agregadas
     averageBasic = totalUsersBasic > 0 ? (double)totalPlaysBasic / totalUsersBasic : 0.0;
     averagePro = totalUsersPro > 0 ? (double)totalPlaysPro / totalUsersPro : 0.0;
@@ -129,7 +132,7 @@ void Stats(tList *list){
 
 
 
-//Funcion auxiliar que convierte un char a la categoria
+//Función auxiliar que convierte un char a la categoría
 tUserCategory char_to_category(char* string){
     tUserCategory category;
     if(strcmp(string, "basic") == 0){
@@ -212,9 +215,9 @@ int main(int nargs, char **args) {
     if (nargs > 1) {
         file_name = args[1];
     } else {
-        #ifdef INPUT_FILE
+#ifdef INPUT_FILE
         file_name = INPUT_FILE;
-        #endif
+#endif
     }
 
     readTasks(file_name);
