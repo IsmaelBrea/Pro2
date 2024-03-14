@@ -91,7 +91,7 @@ void Stats(tList *list){
     /* Objetivo: mostrar la lista de los usuarios actuales de MUSFIC y sus datos
      * Entradas: lista de usuarios
      * Salidas: lista de usuarios
-     * Precondiciones: la lista no debe estar vacía
+     * Precondiciones: -
      * Postcondiciones: -
      */
     static int totalUsersBasic = 0, totalUsersPro = 0;
