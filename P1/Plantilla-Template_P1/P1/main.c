@@ -83,6 +83,52 @@ void Delete(tUserName newUserName,tList *list){
 }
 
 
+
+void Upgrade(tUserName userName, tList *list){
+    /* Objetivo: buscar a un usuario en la lista y actualizar su categoría a PRO
+       * Entradas: nombre de usuario y lista de usuarios
+       * Salidas: lista de usuarios
+       * Precondiciones: el usuario debe existir en la lista, no debe estar vacía, el usuario no es PRO
+       * Postcondiciones: se cambia la categoria de un usuario
+       */
+
+    tPosL userPos = findItem(userName, *list);
+
+    if (userPos != LNULL) {
+        tItemL user = getItem(userPos, *list);
+        if (user.userCategory == basic) {
+            user.userCategory = pro;
+            updateItem(user, userPos, list);
+            printf("* Upgrade: user %s category PRO\n", userName);
+        } else {
+            printf("+ Error: Upgrade not possible\n");
+        }
+    } else {
+        printf("+ Error: Upgrade not possible\n");
+    }
+}
+
+void Play(tUserName username, tList *list) {
+    /* Objetivo: se buscará al usuario en la lista y se incrementará su contador de reproducciones en 1
+     * Entradas: nombre de usuario y lista de usuarios
+     * Salida: ninguna
+     * Precondiciones: el usuario debe existir en la lista
+     * Postcondiciones: el contador de reproducciones del usuario se incrementa en 1
+     */
+
+    tPosL userPos = findItem(username, *list);
+
+    if (userPos != LNULL) {
+        tItemL user = getItem(userPos, *list);
+        user.numPlay++;
+        updateItem(user, userPos, list);
+        printf("* Play: user %s plays song, numPlays: %d\n", username, user.numPlay);
+    } else {
+        printf("+ Error: Play not possible\n");
+    }
+}
+
+
 void Stats(tList *list){
     /* Objetivo: mostrar la lista de los usuarios actuales de MUSFIC y sus datos
      * Entradas: lista de usuarios
@@ -163,9 +209,11 @@ void processCommand(tList *list,char *commandNumber, char command, char *param1,
             break;
         case 'U':
             printf("********************\n");
+            printf("%s %c: user %s\n", commandNumber, command, param1);
             break;
         case 'P':
             printf("********************\n");
+            printf("%s %c: user %s\n", commandNumber, command, param1);
             break;
         case 'S':
             printf("********************\n");
