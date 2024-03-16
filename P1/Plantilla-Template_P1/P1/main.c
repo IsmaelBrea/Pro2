@@ -7,7 +7,6 @@
  */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "types.h"
 
@@ -83,6 +82,66 @@ void Delete(tUserName newUserName,tList *list){
 }
 
 
+void Upgrade(tUserName newUserName, tList *list) {
+        /* Objetivo: actualizar un usuario de categoría basic a pro
+         * Entradas: nombre de usuario y lista de usuarios
+         * Salidas: lista de usuarios actualizada
+         * Precondiciones: -
+         * Postcondiciones: el usuario se actualiza a categoría pro si es posible
+         */
+
+        // Verificar si el usuario existe en la lista
+        tPosL userPos = findItem(newUserName, *list);
+
+        if (userPos != LNULL) {
+            tItemL user = getItem(userPos, *list);
+
+            // Verificar si el usuario ya es de categoría pro
+            if (user.userCategory == pro) {
+                printf("+ Error: Upgrade not possible\n");
+                return;
+            }
+
+            // Actualizar la categoría del usuario a pro
+            user.userCategory = pro;
+            updateItem(user, userPos, list);
+            printf("* Upgrade: user %s category pro\n", newUserName);
+        } else {
+            printf("+ Error: Upgrade not possible\n");
+        }
+    }
+
+
+void Play(tUserName username, tSongTitle songTitle, tList *list) {
+    /* Objetivo: Reproducción de una canción por un usuario.
+     * Entradas: nombre de usuario, título de la canción y lista de usuarios
+     * Salida: lista de usuarios actualizada
+     * Precondiciones: el usuario debe existir en la lista
+     * Postcondiciones: el contador de reproducciones del usuario se incrementa en 1
+     */
+
+    // Buscar al usuario en la lista
+    tPosL userPos = findItem(username, *list);
+
+    if (userPos != LNULL) {
+        // El usuario existe en la lista, obtenemos su información
+        tItemL user = getItem(userPos, *list);
+
+        // Incrementar el contador de reproducciones del usuario en 1
+        user.numPlay++;
+
+        // Actualizar el usuario en la lista
+        updateItem(user, userPos, list);
+
+        // Mostrar mensaje de reproducción exitosa
+        printf("* Play: user %s plays song %s numplays %d\n", username, songTitle, user.numPlay);
+    } else {
+        // No se encontró al usuario en la lista
+        printf("+ Error: Play not possible\n");
+    }
+}
+
+
 void Stats(tList *list){
     /* Objetivo: mostrar la lista de los usuarios actuales de MUSFIC y sus datos
      * Entradas: lista de usuarios
@@ -125,10 +184,12 @@ void Stats(tList *list){
     averagePro = totalUsersPro > 0 ? (double)totalPlaysPro / totalUsersPro : 0.0;
 
     // Imprimir tabla de estadísticas
-    printf("Category   Users   Plays   Average\n");
-    printf("Basic      %5d   %6d   %8.2f\n", totalUsersBasic, totalPlaysBasic, averageBasic);
-    printf("Pro        %5d   %6d   %8.2f\n", totalUsersPro, totalPlaysPro, averagePro);
+    printf("Category  Users  Plays  Average\n");
+    printf("Basic     %5d  %5d  %7.2f\n", totalUsersBasic, totalPlaysBasic, averageBasic);
+    printf("Pro       %5d  %5d  %7.2f\n", totalUsersPro, totalPlaysPro, averagePro);
 }
+
+
 
 
 
@@ -163,9 +224,13 @@ void processCommand(tList *list,char *commandNumber, char command, char *param1,
             break;
         case 'U':
             printf("********************\n");
+            printf("%s %c: user %s\n", commandNumber, command, param1);
+            Upgrade(param1,list);
             break;
         case 'P':
             printf("********************\n");
+            printf("%s %c: user %s song %s\n", commandNumber, command, param1,param2);
+            Play(param1,param2,list);
             break;
         case 'S':
             printf("********************\n");
