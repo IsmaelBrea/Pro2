@@ -3,7 +3,7 @@
  * SUBTITLE: Practical 1
  * AUTHOR 1: ISMAEL BREA ARIAS    LOGIN 1: ismael.brea
  * AUTHOR 2: DIEGO ROMÁN POSE     LOGIN 2: diego.roman
- * GROUP:4.3                       DATE: 12 / 03 / 2024
+ * GROUP:4.3                       DATE: 19 / 03 / 2024
  */
 
 #ifndef DYNAMIC_LIST_H
@@ -29,10 +29,10 @@ typedef tPosL *tList;
 
 void createEmptyList(tList *list);
 /* createEmptyList (tList) -> tList
- {Objetivo: Crear una lista vacía.
+ {Objetivo: Crear una lista vacía y la inicializa.
  Salida:
     tList: una lista vacía
-PostCD: La lista queda inicializada y no contiene elementos }
+PostCD: La lista queda inicializada y no contiene elementos}
  */
 
 
@@ -77,7 +77,8 @@ tPosL next(tPosL pos, tList list);
    tPosL: posición de la lista y tList: lista
  Salida:
     tPosL: posición de la lista
- PreCD: La posición indicada es una posición válida en la lista}
+ PreCD: La lista está inicializada
+        La posición indicada es una posición válida en la lista}
  */
 
 

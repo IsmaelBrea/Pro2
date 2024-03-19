@@ -3,7 +3,7 @@
  * SUBTITLE: Practical 1
  * AUTHOR 1: ISMAEL BREA ARIAS    LOGIN 1: ismael.brea
  * AUTHOR 2: DIEGO ROMÁN POSE     LOGIN 2: diego.roman
- * GROUP:4.3                       DATE:
+ * GROUP:4.3                       DATE: 19 / 03 / 2024
  */
 
 #include <stdio.h>
@@ -20,12 +20,17 @@
 #endif
 
 void New(tUserName newUserName, tUserCategory newUserCategory, tList *list){
-    /* Objetivo: alta de un usuario de categoría basic o pro
-  * Entradas: lista de usuarios, nombre de usuario y categoría del usuario
-  * Salidas: lista
-  * Precondiciones: ninguna
-  * Postcondiciones: la lista de usuarios se modifica para incluir el nuevo usuario.
-   */
+    /* New (tUserName, tUserCategory, tList) -> tList
+    {Objetivo: Agregar un nuevo usuario a la lista si este no existe ya. Imprime un mensaje de confirmación o de error.
+    Entrada:
+        tUserName: nombre del nuevo usuario,
+        tUserCategory: categoría del nuevo usuario,
+        tList: lista de usuarios
+    Salida:
+        tList: lista de usuarios
+    PreCD: La lista debe estar previamente inicializada
+    PostCD: Se añade un nuevo usuario a la lista si no existe ya, y se imprime un mensaje de confirmación o de error}
+    */
 
     // Verificar si el usuario ya existe en la lista
     if (findItem(newUserName, *list) != LNULL) {
@@ -52,13 +57,17 @@ void New(tUserName newUserName, tUserCategory newUserCategory, tList *list){
 }
 
 void Delete(tUserName newUserName,tList *list){
-    /* Objetivo: eliminar un usuario de la lista
-     * Entradas: nombre de usuario y lista de usuarios
-     * Salidas: lista de usuarios
-     * Precondiciones: el usuario debe existir en la lista
-     * Postcondiciones: cambia la lista (tiene un elemento menos, por lo que se modifican las posiciones)
-     *
-     */
+    /* Delete (tUserName, tList) -> tList
+     {Objetivo: Eliminar un usuario de la lista si existe. Imprime un mensaje de confirmación o de error.
+                Entrada:
+        tUserName: nombre del usuario a eliminar,
+        tList: lista de usuarios
+        Salida:
+        tList: lista de usuarios
+        PreCD: La lista debe estar previamente inicializada
+        PostCD: Se elimina el usuario de la lista si existe, y se imprime un mensaje de confirmación o de error}
+        */
+
     if (isEmptyList(*list)) { // Comprobar si la lista está vacía
         printf("+ Error: Delete not possible\n");
         return;
@@ -83,13 +92,16 @@ void Delete(tUserName newUserName,tList *list){
 
 
 void Upgrade(tUserName newUserName, tList *list) {
-        /* Objetivo: actualizar un usuario de categoría basic a pro
-         * Entradas: nombre de usuario y lista de usuarios
-         * Salidas: lista de usuarios actualizada
-         * Precondiciones: -
-         * Postcondiciones: el usuario se actualiza a categoría pro si es posible
-         */
-
+    /* Upgrade (tUserName, tList) -> tList
+    {Objetivo: Actualizar la categoría de un usuario a "pro" si este existe y no es "pro" aún. Imprime un mensaje de confirmación o de error.
+    Entrada:
+        tUserName: nombre del usuario a actualizar,
+        tList: lista de usuarios
+    Salida:
+        tList: lista de usuarios
+    PreCD: La lista debe estar previamente inicializada
+    PostCD: Se actualiza la categoría del usuario a "pro" si este existe y no es "pro" aún, y se imprime un mensaje de confirmación o de error}
+    */
         // Verificar si el usuario existe en la lista
         tPosL userPos = findItem(newUserName, *list);
 
@@ -114,25 +126,25 @@ void Upgrade(tUserName newUserName, tList *list) {
 
 void Play(tUserName username, tSongTitle songTitle, tList *list) {
     /* Objetivo: Reproducción de una canción por un usuario.
-     * Entradas: nombre de usuario, título de la canción y lista de usuarios
-     * Salida: lista de usuarios actualizada
-     * Precondiciones: el usuario debe existir en la lista
-     * Postcondiciones: el contador de reproducciones del usuario se incrementa en 1
-     */
-
-    // Buscar al usuario en la lista
+       * Entradas:
+       *   - tUsername: nombre del usuario que reproduce la canción.
+       *   - tSongTitle: título de la canción reproducida.
+       *   - tList: lista de usuarios.
+       * Salida:
+       *   - tList: lista de usuarios actualizada
+       * PreCD: la lista debe estar previamente inicializada
+       * PostCD: El contador de reproducciones del usuario se incrementa en 1.
+       */
+    // Verificar si el usuario existe en la lista
     tPosL userPos = findItem(username, *list);
 
     if (userPos != LNULL) {
         // El usuario existe en la lista, obtenemos su información
         tItemL user = getItem(userPos, *list);
-
-        // Incrementar el contador de reproducciones del usuario en 1
+        // Incrementamos el contador de reproducciones del usuario en 1
         user.numPlay++;
-
         // Actualizar el usuario en la lista
         updateItem(user, userPos, list);
-
         // Mostrar mensaje de reproducción exitosa
         printf("* Play: user %s plays song %s numplays %d\n", username, songTitle, user.numPlay);
     } else {
@@ -144,10 +156,12 @@ void Play(tUserName username, tSongTitle songTitle, tList *list) {
 
 void Stats(tList *list){
     /* Objetivo: mostrar la lista de los usuarios actuales de MUSFIC y sus datos
-     * Entradas: lista de usuarios
-     * Salidas: lista de usuarios
-     * Precondiciones: -
-     * Postcondiciones: -
+     * Entradas:
+     *      tList: lista de usuarios
+     * Salidas:
+     *      tList: lista de usuarios
+     * PreCD: la lista debe estar previamente inicializada
+
      */
     static int totalUsersBasic = 0, totalUsersPro = 0;
     static int totalPlaysBasic = 0, totalPlaysPro = 0;
@@ -184,14 +198,10 @@ void Stats(tList *list){
     averagePro = totalUsersPro > 0 ? (double)totalPlaysPro / totalUsersPro : 0.0;
 
     // Imprimir tabla de estadísticas
-    printf("Category  Users  Plays  Average\n");
-    printf("Basic     %5d  %5d  %7.2f\n", totalUsersBasic, totalPlaysBasic, averageBasic);
-    printf("Pro       %5d  %5d  %7.2f\n", totalUsersPro, totalPlaysPro, averagePro);
+    printf("Category Users Plays  Average\n");
+    printf("Basic     %5d %6d %8.2f\n", totalUsersBasic, totalPlaysBasic, averageBasic);
+    printf("Pro       %5d %6d %8.2f\n", totalUsersPro, totalPlaysPro, averagePro);
 }
-
-
-
-
 
 //Función auxiliar que convierte un char a la categoría
 tUserCategory char_to_category(char* string){
