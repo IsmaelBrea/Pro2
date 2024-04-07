@@ -3,7 +3,7 @@
  * SUBTITLE: Practical 1
  * AUTHOR 1: ISMAEL BREA ARIAS    LOGIN 1: ismael.brea
  * AUTHOR 2: DIEGO ROMÁN POSE     LOGIN 2: diego.roman
- * GROUP:4.3                       DATE: 19/03/2024
+ * GROUP:4.3                      DATE: 19/03/2024
  */
 
 
@@ -63,8 +63,8 @@ void deleteAtPosition(tPosL pos, tList *list) {     //la lista se pasa por refer
     tPosL i;
 
     list->lastPos--;       //actualizamos lastPos al haber un elemento menos en la lista
-    for (i = pos; i <= list->lastPos; i++) {   //recorremos la lista desde p hasta el final
-        list->data[i] = list->data[i + 1];  //cambiando el elemento actual por el siguiente eliminando p
+    for (i = pos; i <= list->lastPos; i++) {   //recorremos la lista desde pos hasta el final
+        list->data[i] = list->data[i + 1];  //cambiando el elemento actual por el siguiente eliminando pos
     }
 }
 
