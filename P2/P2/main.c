@@ -16,6 +16,83 @@
 
 #define MAX_BUFFER 255
 
+void New(tUserName newUserName, tUserCategory newUserCategory, tList *list) {
+    /* Objetivo: Procesar la petición de creación de un nuevo usuario.
+     * Entradas:
+     *   newUserName: Nombre del nuevo usuario.
+     *   newUserCategory: Categoría del nuevo usuario.
+     *   list: Puntero a la lista de usuarios.
+     * Salidas: ninguna.
+     * Precondiciones: list debe ser un puntero válido a una lista de usuarios.
+     * Postcondiciones: Se incorpora un nuevo usuario a la lista de usuarios con la categoría indicada.
+     */
+
+    // Verificar si el usuario ya existe en la lista
+    if (findItem(newUserName, *list) != LNULL) {
+        // El usuario ya existe, imprimir un mensaje de error
+        printf("+ Error: New not possible\n");
+        return;
+    }
+
+    // Crear un nuevo objeto tItem para representar al nuevo usuario
+    tItem newUser;
+
+    strcpy(newUser.userName, newUserName);
+    newUser.userCategory = newUserCategory;
+    newUser.numPlay = 0;  // Inicializar el contador de tiempo de reproducción a 0
+
+    // Insertar el nuevo usuario en la lista
+    if (insertItem(newUser, LNULL, list)) {
+        // Imprimir un mensaje de confirmación
+        printf("* New: user %s category %s\n", newUserName, newUserCategory == basic ? "basic" : "pro");
+    } else {
+        // No se pudo agregar el nuevo usuario, imprimir un mensaje de error
+        printf("+ Error: New not possible\n");
+    }
+}
+}
+
+void Add(tUserName userName, tSongTitle songTitle, tListU *userList) {
+    /* Objetivo: Procesar la petición de agregar una canción a la lista de reproducción de un usuario.
+     * Entradas:
+     *   userName: Nombre del usuario al que se añadirá la canción.
+     *   songTitle: Título de la canción a agregar.
+     *   userList: Puntero a la lista de usuarios.
+     * Salidas: ninguna.
+     * Precondiciones: userList debe ser un puntero válido a una lista de usuarios.
+     * Postcondiciones: Se agrega la canción a la lista de reproducción del usuario indicado.
+     */
+
+    // Buscar al usuario en la lista
+    tPosU userPosition = findItemU(userName, *userList);
+
+    if (userPosition != NULLU) {
+        // Verificar si la canción ya está en la lista de reproducción del usuario
+        tPosS songPosition = findItemS(songTitle, getItemU(userPosition, *userList).songList);
+        if (songPosition == NULLS) {
+            // La canción no está en la lista de reproducción del usuario, la añadimos
+            tSong newSong;
+            strcpy(newSong.songTitle, songTitle);
+            newSong.playTime = 0;  // Inicializamos el tiempo de reproducción a 0
+
+            // Insertar la nueva canción al final de la lista de reproducción
+            if (insertItemS(newSong, lastS(getItemU(userPosition, *userList).songList), &(getItemU(userPosition, *userList).songList))) {
+                // Imprimir mensaje de éxito
+                printf("* Add: user %s adds song %s\n", userName, songTitle);
+            } else {
+                // No se pudo agregar la canción, imprimir mensaje de error
+                printf("+ Error: Add not possible\n");
+            }
+        } else {
+            // La canción ya está en la lista de reproducción del usuario, imprimir mensaje de error
+            printf("+ Error: Add not possible\n");
+        }
+    } else {
+        // No se encontró al usuario en la lista, imprimir mensaje de error
+        printf("+ Error: Add not possible\n");
+    }
+}
+
 
 
 void processCommand(char *commandNumber, char command, char *param1, char *param2, char *param3) {
